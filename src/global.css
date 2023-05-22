@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'), url('/Inter-VariableFont_slnt,wght.ttf') format('opentype');
+}
+
+:root {
+  --gunmetal: #253347;
+  --dark-electric-blue: #5e6e85;
+  --white: #ffffff;
+  --pattens-blue: #d8e2e7;
+  --blue: #345ff6;
+  --input-checked: #345ff626;
+
+  background-color: var(--white);
+  font-family: 'Inter';
+}
