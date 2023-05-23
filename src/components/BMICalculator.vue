@@ -1,9 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import FormGroup from './FormGroup.vue'
 import FormInput from './FormInput.vue'
 
 const selected = ref('metric')
+
+const metric = reactive({
+  height: '',
+  weight: ''
+})
+
+const imperial = reactive({
+  ft: '',
+  in: '',
+  st: '',
+  lbs: ''
+})
+
+const bmi = computed<number>(() => +(+metric.weight / (+metric.height * 0.01) ** 2).toFixed(1))
 
 function handleClick(event: Event) {
   const { id } = event.currentTarget as HTMLInputElement
@@ -28,27 +42,29 @@ function handleClick(event: Event) {
     <!-- If Metric -->
     <div class="container--form" v-if="selected === 'metric'">
       <FormGroup label="Height">
-        <FormInput id="height" units="cm" />
+        <FormInput id="height" unit="cm" v-model="metric.height" />
       </FormGroup>
       <FormGroup label="Weight">
-        <FormInput id="weight" units="kg" />
+        <FormInput id="weight" unit="kg" v-model="metric.weight" />
       </FormGroup>
     </div>
 
     <!-- If Imperial -->
     <div class="container--form" v-if="selected === 'imperial'">
       <FormGroup label="Height" imperial>
-        <FormInput id="height" units="ft" imperial />
-        <FormInput units="in" imperial />
+        <FormInput id="height" unit="ft" imperial />
+        <FormInput unit="in" imperial />
       </FormGroup>
       <FormGroup label="Weight" imperial>
-        <FormInput id="weight" units="st" imperial />
-        <FormInput units="lbs" imperial />
+        <FormInput id="weight" unit="st" imperial />
+        <FormInput unit="lbs" imperial />
       </FormGroup>
     </div>
-    <div class="container--result">
+
+    <!-- Result -->
+    <div class="container--result" v-if="metric.height && metric.weight">
       <span>Your BMI is...</span>
-      <strong>23.4</strong>
+      <strong>{{ bmi >= 50 ? 'N/A' : bmi }}</strong>
       <p>
         Your BMI suggests you&apos;re a healthy weight. Your ideal weight is between
         <strong>63.3kgs - 85.2kgs.</strong>
@@ -68,6 +84,7 @@ div[class^='container--'] {
   row-gap: 2.4rem;
   box-shadow: 1.6rem 3.2rem 5.6rem rgba(143, 174, 207, 0.25);
   border-radius: 1.6rem;
+  max-width: 32.8rem;
 }
 
 h3 {
@@ -148,6 +165,8 @@ h3 {
   font-size: 4.8rem;
   line-height: 5.28rem;
   letter-spacing: -0.05rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .container--result > p {

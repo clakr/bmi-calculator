@@ -1,11 +1,17 @@
 <script setup lang="ts">
-const props = defineProps<{ id?: string; units: string }>()
+const props = defineProps<{ id?: string; unit: string; modelValue?: string }>()
+const emit = defineEmits(['update:modelValue'])
+
+function handleInput(event: Event) {
+  const { value } = event.target as HTMLInputElement
+  emit('update:modelValue', value)
+}
 </script>
 
 <template>
   <div>
-    <input type="number" :id="props.id" />
-    <span>{{ props.units }}</span>
+    <input type="number" :value="modelValue" :id="props.id" @input="handleInput" />
+    <span>{{ props.unit }}</span>
   </div>
 </template>
 
