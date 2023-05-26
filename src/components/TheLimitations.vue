@@ -95,9 +95,9 @@ h3 {
   gap: 2rem;
   align-items: center;
   padding: 2.4rem;
+  background-color: var(--white);
   box-shadow: 1.6rem 3.2rem 5.6rem rgba(143, 174, 207, 0.25);
   border-radius: 1.6rem;
-  background-color: var(--white);
 }
 
 .card > img {
@@ -142,6 +142,40 @@ h3 {
   .card:last-child {
     grid-column: span 2 / span 2;
     justify-self: center;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  section {
+    padding: 12rem 14rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3.2rem;
+    background-image: url(/pattern-curved-line-right.svg);
+    background-repeat: no-repeat;
+    background-position: top calc(50% - 4.5rem) left 30.5rem;
+  }
+
+  .copywrite {
+    text-align: start;
+    max-width: 56.4rem;
+  }
+
+  .card:nth-of-type(2) {
+    transform: translateX(-10rem);
+  }
+
+  .card:is(:nth-of-type(3), :nth-of-type(5)) {
+    grid-column: span 2 / span 2;
+    justify-self: end;
+  }
+
+  .card:is(:nth-of-type(5), :nth-of-type(6)) {
+    transform: translateX(-20rem);
+  }
+
+  .card:last-child {
+    grid-column: unset;
+    justify-self: unset;
   }
 }
 </style>

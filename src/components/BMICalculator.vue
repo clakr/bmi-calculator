@@ -64,7 +64,7 @@ watchEffect(() => {
     </div>
 
     <!-- If Imperial -->
-    <div class="container--form" v-if="selected === 'imperial'">
+    <div class="container--form imperial" v-if="selected === 'imperial'">
       <FormGroup label="Height" imperial>
         <FormInput id="height" unit="ft" v-model="imperial.ft" imperial />
         <FormInput unit="in" v-model="imperial.in" imperial />
@@ -84,6 +84,10 @@ watchEffect(() => {
         <strong>63.3kgs - 85.2kgs.</strong>
       </p>
     </div>
+    <div class="container--result welcome" v-else>
+      <strong>Welcome!</strong>
+      <p>Enter your height and weight and you’ll see your BMI result here</p>
+    </div>
   </div>
 </template>
 
@@ -92,6 +96,7 @@ div[class^='container--'] {
   display: flex;
 }
 .container--calculator {
+  margin-top: 2.4rem;
   background-color: var(--white);
   padding: 2.4rem;
   flex-direction: column;
@@ -109,8 +114,9 @@ h3 {
   color: var(--gunmetal);
 }
 
-.container--radio {
-  justify-content: space-between;
+div.container--radio {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .form__group--radio {
@@ -189,8 +195,26 @@ h3 {
   line-height: 2.1rem;
 }
 
+.container--result.welcome {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem 0;
+}
+
+.container--result.welcome > strong {
+  font-size: 2.4rem;
+  line-height: 2.905rem;
+  letter-spacing: -0.05rem;
+  order: unset;
+}
+
+.container--result.welcome > p {
+  align-self: unset;
+}
+
 @media screen and (min-width: 768px) {
   .container--calculator {
+    margin-top: unset;
     padding: 3.2rem;
     row-gap: 3.2rem;
     max-width: 68.6rem;
@@ -221,6 +245,26 @@ h3 {
     margin-top: unset;
     grid-row: span 2 / span 2;
     align-self: center;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container--calculator {
+    margin-top: unset;
+    padding: 3.2rem;
+    row-gap: 3.2rem;
+    max-width: 56.4rem;
+  }
+
+  .imperial {
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  .container--result > strong {
+    font-weight: 600;
+    font-size: 6.4rem;
+    line-height: 7.04rem;
   }
 }
 </style>

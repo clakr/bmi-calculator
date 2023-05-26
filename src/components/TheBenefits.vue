@@ -98,4 +98,26 @@ p {
     align-self: center;
   }
 }
+
+@media screen and (min-width: 1440px) {
+  section {
+    margin-top: 9.6rem;
+    padding: 7.2rem 11.7rem 9.6rem 11.6rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 3.2rem;
+  }
+
+  div {
+    grid-template: unset;
+    gap: 2.4rem 0;
+  }
+
+  h4 {
+    margin-top: 2.1rem;
+  }
+
+  p {
+    max-width: 35ch;
+  }
+}
 </style>

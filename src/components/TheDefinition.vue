@@ -63,4 +63,38 @@ p {
     padding: 3.5rem 0 3.409rem 0;
   }
 }
+
+@media screen and (min-width: 1440px) {
+  section {
+    margin-top: 15rem;
+    gap: 0 13.1rem;
+    margin-right: unset;
+    padding-inline: 14rem;
+    background-image: url(/pattern-curved-line-left.svg);
+    background-repeat: no-repeat;
+    background-position: top -5.2rem right 16.7rem;
+  }
+
+  img {
+    width: 56.4em;
+    height: 53.3rem;
+    object-fit: contain;
+    object-position: unset;
+  }
+
+  div {
+    padding: 0;
+    align-self: flex-end;
+  }
+
+  h3 {
+    font-size: 4.8rem;
+    line-height: 5.28rem;
+  }
+
+  p {
+    margin-top: 3.5rem;
+    margin-bottom: 5.5rem;
+  }
+}
 </style>
