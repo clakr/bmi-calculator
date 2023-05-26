@@ -169,6 +169,10 @@ h3 {
     justify-self: end;
   }
 
+  .card:is(:nth-of-type(3), :nth-of-type(4)) {
+    transform: translateX(0);
+  }
+
   .card:is(:nth-of-type(5), :nth-of-type(6)) {
     transform: translateX(-20rem);
   }

@@ -17,6 +17,9 @@ const bmi = computed(() =>
     : ((703 * imperialWeight.value) / imperialHeight.value ** 2).toFixed(1)
 )
 
+const MINIMUM_BMI = 18.5
+const MAXIMUM_BMI = 25
+
 function handleClick(event: Event) {
   const { id } = event.currentTarget as HTMLInputElement
   selected.value = id
@@ -30,6 +33,27 @@ function setInitialValues() {
   imperial.in = ''
   imperial.st = ''
   imperial.lbs = ''
+}
+
+function computeMetricWeight(bmi: number) {
+  return `${(bmi * (+metric.height * 0.01) ** 2).toFixed(1)}kgs`
+}
+
+function computeImperialWeight(bmi: number) {
+  const computedWeight = (bmi * imperialHeight.value ** 2) / 703
+  return `${(computedWeight / 14).toFixed(0)}st ${(computedWeight % 14).toFixed(0)}lbs`
+}
+
+function categorizeBMI() {
+  const value = +bmi.value
+  if (value < 15) return 'Very Severely Underweight'
+  if (value < 16 && value > 15) return 'Severely Underweight'
+  if (value < 18.5 && value > 16) return 'Underweight'
+  if (value < 25 && value > 18.5) return 'Normal'
+  if (value < 30 && value > 25) return 'Overweight'
+  if (value < 35 && value > 30) return 'Moderately Obese'
+  if (value < 40 && value > 35) return 'Severely Obese'
+  return 'Very Severely Obese'
 }
 
 watchEffect(() => {
@@ -80,13 +104,18 @@ watchEffect(() => {
       <span>Your BMI is...</span>
       <strong>{{ bmi }}</strong>
       <p>
-        Your BMI suggests you&apos;re a healthy weight. Your ideal weight is between
-        <strong>63.3kgs - 85.2kgs.</strong>
+        Your BMI suggests you&apos;re {{ categorizeBMI() }}. Your ideal weight is between
+        <strong v-if="selected === 'metric'">
+          {{ computeMetricWeight(MINIMUM_BMI) }} - {{ computeMetricWeight(MAXIMUM_BMI) }}.
+        </strong>
+        <strong v-if="selected === 'imperial'">
+          {{ computeImperialWeight(MINIMUM_BMI) }} - {{ computeImperialWeight(MAXIMUM_BMI) }}.
+        </strong>
       </p>
     </div>
     <div class="container--result welcome" v-else>
       <strong>Welcome!</strong>
-      <p>Enter your height and weight and you’ll see your BMI result here</p>
+      <p>Enter your height and weight and you&apos;ll see your BMI result here</p>
     </div>
   </div>
 </template>
