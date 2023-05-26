@@ -165,6 +165,10 @@ div.container--radio {
   place-content: center;
 }
 
+.form__group--radio > input:active {
+  border-color: var(--blue);
+}
+
 .form__group--radio > input::before {
   content: '';
   width: 1.5em;

@@ -10,7 +10,7 @@ function handleInput(event: Event) {
 
 <template>
   <div>
-    <input type="number" :value="modelValue" :id="props.id" @input="handleInput" />
+    <input type="number" :value="modelValue" :id="props.id" @input="handleInput" placeholder="0" />
     <span>{{ props.unit }}</span>
   </div>
 </template>
@@ -31,6 +31,15 @@ input {
   border-radius: 1.2rem;
   width: 100%;
   z-index: 0;
+}
+
+input:active {
+  border-color: var(--blue);
+  outline: none;
+}
+
+input::placeholder {
+  opacity: 0.25;
 }
 
 span {

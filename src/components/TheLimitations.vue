@@ -160,6 +160,15 @@ h3 {
     max-width: 56.4rem;
   }
 
+  h3 {
+    font-size: 4.8rem;
+    line-height: 5.28rem;
+  }
+
+  .copywrite > p {
+    margin-top: 3.5rem;
+  }
+
   .card:nth-of-type(2) {
     transform: translateX(-10rem);
   }
