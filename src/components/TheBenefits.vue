@@ -78,4 +78,24 @@ p {
   line-height: 2.4rem;
   color: var(--dark-electric-blue);
 }
+
+@media screen and (min-width: 768px) {
+  section {
+    margin-top: 9.6rem;
+    padding: 6rem 4.3rem 6rem 3.9rem;
+  }
+
+  div {
+    grid-template-columns: 6.4rem 1fr;
+    grid-template-rows: 2.4rem 1fr;
+    column-gap: 4rem;
+  }
+
+  img {
+    width: 6.4rem;
+    height: 6.4rem;
+    grid-row: span 2 / span 2;
+    align-self: center;
+  }
+}
 </style>

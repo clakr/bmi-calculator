@@ -1,28 +1,42 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, watchEffect } from 'vue'
 import FormGroup from './FormGroup.vue'
 import FormInput from './FormInput.vue'
 
 const selected = ref('metric')
 
-const metric = reactive({
-  height: '',
-  weight: ''
-})
+const metric = reactive({ height: '', weight: '' })
+const imperial = reactive({ ft: '', in: '', st: '', lbs: '' })
 
-const imperial = reactive({
-  ft: '',
-  in: '',
-  st: '',
-  lbs: ''
-})
+const imperialHeight = computed(() => +imperial.ft * 12 + +imperial.in)
+const imperialWeight = computed(() => +imperial.st * 14 + +imperial.lbs)
 
-const bmi = computed<number>(() => +(+metric.weight / (+metric.height * 0.01) ** 2).toFixed(1))
+const bmi = computed(() =>
+  selected.value === 'metric'
+    ? (+metric.weight / (+metric.height * 0.01) ** 2).toFixed(1)
+    : ((703 * imperialWeight.value) / imperialHeight.value ** 2).toFixed(1)
+)
 
 function handleClick(event: Event) {
   const { id } = event.currentTarget as HTMLInputElement
   selected.value = id
 }
+
+function setInitialValues() {
+  metric.height = ''
+  metric.weight = ''
+
+  imperial.ft = ''
+  imperial.in = ''
+  imperial.st = ''
+  imperial.lbs = ''
+}
+
+watchEffect(() => {
+  if (!selected.value) return
+
+  setInitialValues()
+})
 </script>
 
 <template>
@@ -52,19 +66,19 @@ function handleClick(event: Event) {
     <!-- If Imperial -->
     <div class="container--form" v-if="selected === 'imperial'">
       <FormGroup label="Height" imperial>
-        <FormInput id="height" unit="ft" imperial />
-        <FormInput unit="in" imperial />
+        <FormInput id="height" unit="ft" v-model="imperial.ft" imperial />
+        <FormInput unit="in" v-model="imperial.in" imperial />
       </FormGroup>
       <FormGroup label="Weight" imperial>
-        <FormInput id="weight" unit="st" imperial />
-        <FormInput unit="lbs" imperial />
+        <FormInput id="weight" unit="st" v-model="imperial.st" imperial />
+        <FormInput unit="lbs" v-model="imperial.lbs" imperial />
       </FormGroup>
     </div>
 
     <!-- Result -->
-    <div class="container--result" v-if="metric.height && metric.weight">
+    <div class="container--result" v-if="bmi !== 'NaN' && +bmi >= 10 && +bmi <= 50">
       <span>Your BMI is...</span>
-      <strong>{{ bmi >= 50 ? 'N/A' : bmi }}</strong>
+      <strong>{{ bmi }}</strong>
       <p>
         Your BMI suggests you&apos;re a healthy weight. Your ideal weight is between
         <strong>63.3kgs - 85.2kgs.</strong>
@@ -173,5 +187,40 @@ h3 {
   margin-top: 1.6rem;
   font-size: 1.4rem;
   line-height: 2.1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .container--calculator {
+    padding: 3.2rem;
+    row-gap: 3.2rem;
+    max-width: 68.6rem;
+  }
+
+  .container--form {
+    flex-direction: row;
+    gap: 0 2.4rem;
+  }
+
+  div.container--result {
+    border-top-right-radius: 9.9rem;
+    border-bottom-right-radius: 9.9rem;
+    padding: 3.2rem;
+    flex-direction: unset;
+    gap: 0.8rem 2.4rem;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 2.4rem 1fr;
+  }
+
+  .container--result > strong {
+    order: 2;
+  }
+
+  .container--result > p {
+    margin-top: unset;
+    grid-row: span 2 / span 2;
+    align-self: center;
+  }
 }
 </style>

@@ -43,4 +43,24 @@ p {
   line-height: 2.4rem;
   color: var(--dark-electric-blue);
 }
+
+@media screen and (min-width: 728px) {
+  section {
+    margin-top: 9.6rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 7.5rem;
+    margin-right: 4.3rem;
+  }
+
+  img {
+    width: 43.5rem;
+    height: 41.109rem;
+    object-fit: cover;
+    object-position: right;
+  }
+
+  div {
+    padding: 3.5rem 0 3.409rem 0;
+  }
+}
 </style>

@@ -119,4 +119,29 @@ h3 {
   line-height: 150%;
   color: var(--dark-electric-blue);
 }
+
+@media screen and (min-width: 768px) {
+  section {
+    padding: 9.6rem 4.3rem 9.6rem 3.9rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.4rem 1.5rem;
+  }
+
+  .copywrite {
+    text-align: center;
+    grid-column: span 2 / span 2;
+    margin-bottom: 3.2rem;
+  }
+  .card {
+    align-items: center;
+    padding: 3.2rem;
+    max-width: 36.5rem;
+  }
+
+  .card:last-child {
+    grid-column: span 2 / span 2;
+    justify-self: center;
+  }
+}
 </style>

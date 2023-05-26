@@ -26,6 +26,16 @@ section {
   position: relative;
 }
 
+section::before {
+  content: '';
+  background-image: linear-gradient(290.1deg, #d6e6fe 0%, rgba(214, 252, 254, 0) 100%);
+  border-radius: 0 0 3.5rem 3.5rem;
+  position: absolute;
+  inset: 0;
+  height: 64rem;
+  z-index: -1;
+}
+
 div {
   display: flex;
   flex-direction: column;
@@ -54,13 +64,15 @@ p {
   color: var(--dark-electric-blue);
 }
 
-section::before {
-  content: '';
-  background-image: linear-gradient(290.1deg, #d6e6fe 0%, rgba(214, 252, 254, 0) 100%);
-  border-radius: 0 0 3.5rem 3.5rem;
-  position: absolute;
-  inset: 0;
-  height: 64rem;
-  z-index: -1;
+@media screen and (min-width: 768px) {
+  section {
+    padding: 3.4rem 4.3rem 0 3.9rem;
+    row-gap: 4rem;
+  }
+
+  h2 {
+    max-width: 12ch;
+    align-self: center;
+  }
 }
 </style>
